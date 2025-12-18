@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Plane, GraduationCap, Building, Car, TrendingUp, Shield } from "lucide-react";
+import { Plane, GraduationCap, Building, Car, TrendingUp } from "lucide-react";
+import villa5 from "@/assets/villa-5.jpg";
 
 const LocationAdvantage = () => {
   const ref = useRef(null);
@@ -40,25 +41,26 @@ const LocationAdvantage = () => {
           </p>
         </motion.div>
 
-        {/* Map Placeholder */}
+        {/* Map/Location Visual */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative bg-primary/5 rounded-2xl overflow-hidden mb-12 aspect-video flex items-center justify-center"
+          className="relative rounded-2xl overflow-hidden mb-12 aspect-video"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-gold/10" />
-          <div className="relative text-center p-8">
-            <div className="w-16 h-16 rounded-full bg-gold/20 flex items-center justify-center mx-auto mb-4">
+          <img 
+            src={villa5} 
+            alt="Luxury villa community"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-8 text-center">
+            <div className="w-16 h-16 rounded-full bg-gold/20 flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
               <div className="w-4 h-4 rounded-full bg-gold animate-pulse" />
             </div>
-            <h3 className="text-2xl font-serif text-foreground mb-2">Dundigal, Hyderabad</h3>
-            <p className="text-muted-foreground">Strategic North Hyderabad Location</p>
+            <h3 className="text-2xl font-serif text-white mb-2">Dundigal, Hyderabad</h3>
+            <p className="text-white/80">Strategic North Hyderabad Location</p>
           </div>
-          {/* Connection Lines */}
-          <div className="absolute top-1/4 left-1/4 w-px h-20 bg-gold/30 rotate-45" />
-          <div className="absolute top-1/3 right-1/4 w-px h-16 bg-gold/30 -rotate-45" />
-          <div className="absolute bottom-1/4 left-1/3 w-px h-24 bg-gold/30 rotate-12" />
         </motion.div>
 
         {/* Connectivity Grid */}

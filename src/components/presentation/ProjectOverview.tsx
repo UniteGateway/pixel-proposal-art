@@ -2,16 +2,20 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { MapPin, Home, Users, Building2, Ruler } from "lucide-react";
+import villa1 from "@/assets/villa-1.jpg";
+import villa2 from "@/assets/villa-2.jpg";
+import villa3 from "@/assets/villa-3.jpg";
+import villa4 from "@/assets/villa-4.jpg";
 
 const ProjectOverview = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const stats = [
-    { icon: Ruler, value: "33", unit: "Acres", label: "Total Land Area" },
-    { icon: Home, value: "430", unit: "Villas", label: "Total Units" },
-    { icon: Building2, value: "Premium", unit: "Gated", label: "Project Type" },
-    { icon: Users, value: "HNI/NRI", unit: "Focus", label: "Target Buyers" },
+    { icon: Ruler, value: "33", unit: "Acres", label: "Total Land Area", image: villa1 },
+    { icon: Home, value: "430", unit: "Villas", label: "Total Units", image: villa2 },
+    { icon: Building2, value: "Premium", unit: "Gated", label: "Project Type", image: villa3 },
+    { icon: Users, value: "HNI/NRI", unit: "Focus", label: "Target Buyers", image: villa4 },
   ];
 
   const strengths = [
@@ -47,16 +51,26 @@ const ProjectOverview = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-              className="bg-card p-6 rounded-xl border border-border text-center group hover:shadow-lg transition-shadow"
+              className="bg-card rounded-xl border border-border text-center group hover:shadow-lg transition-shadow overflow-hidden"
             >
-              <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary/10 mb-4 group-hover:bg-gold/20 transition-colors">
-                <stat.icon className="w-7 h-7 text-primary group-hover:text-gold transition-colors" />
+              <div className="relative h-32 overflow-hidden">
+                <img 
+                  src={stat.image} 
+                  alt={stat.label}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
               </div>
-              <div className="text-3xl md:text-4xl font-bold text-foreground mb-1">
-                {stat.value}
+              <div className="p-6 -mt-6 relative">
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-card border border-border mb-3 group-hover:border-gold/50 transition-colors">
+                  <stat.icon className="w-6 h-6 text-primary group-hover:text-gold transition-colors" />
+                </div>
+                <div className="text-3xl md:text-4xl font-bold text-foreground mb-1">
+                  {stat.value}
+                </div>
+                <div className="text-gold font-semibold text-sm mb-1">{stat.unit}</div>
+                <div className="text-muted-foreground text-xs">{stat.label}</div>
               </div>
-              <div className="text-gold font-semibold text-sm mb-1">{stat.unit}</div>
-              <div className="text-muted-foreground text-xs">{stat.label}</div>
             </motion.div>
           ))}
         </div>

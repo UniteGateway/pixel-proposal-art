@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Rocket, Star, Users, TrendingUp, Gift, Lock } from "lucide-react";
+import villaPool from "@/assets/villa-pool.jpg";
 
 const Phase1 = () => {
   const ref = useRef(null);
@@ -38,7 +39,15 @@ const Phase1 = () => {
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className="space-y-6"
           >
+            <div className="rounded-2xl overflow-hidden">
+              <img 
+                src={villaPool} 
+                alt="Luxury villa with pool"
+                className="w-full h-48 object-cover"
+              />
+            </div>
             <div className="bg-gradient-to-br from-primary to-green-dark rounded-2xl p-8 text-primary-foreground">
               <h3 className="text-2xl font-serif mb-4">Objective</h3>
               <p className="text-lg opacity-90 mb-6">
