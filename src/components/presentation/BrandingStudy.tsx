@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Palette, BarChart3, Target, TrendingUp, FileText, Award } from "lucide-react";
+import villaInterior from "@/assets/villa-interior.jpg";
 
 const BrandingStudy = () => {
   const ref = useRef(null);
@@ -37,7 +38,15 @@ const BrandingStudy = () => {
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative"
           >
+            <div className="rounded-2xl overflow-hidden mb-6">
+              <img 
+                src={villaInterior} 
+                alt="Premium villa interior"
+                className="w-full h-64 object-cover"
+              />
+            </div>
             <h3 className="text-2xl font-serif text-foreground mb-6">
               Building a <span className="text-gold">Premium Brand</span>
             </h3>

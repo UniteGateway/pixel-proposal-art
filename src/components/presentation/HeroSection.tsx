@@ -1,12 +1,23 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import heroVilla from "@/assets/hero-villa.jpg";
 
 const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center bg-gradient-hero overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
+      {/* Background Image */}
+      <div className="absolute inset-0">
+        <img
+          src={heroVilla}
+          alt="Luxury villa at Kesineni Northscape"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/70 to-primary/90" />
+      </div>
+
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-20 w-64 h-64 border border-gold/30 rotate-45" />
