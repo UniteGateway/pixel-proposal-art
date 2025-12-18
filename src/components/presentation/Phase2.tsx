@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Target, Monitor, Megaphone, UserCheck, Smartphone, MapPin } from "lucide-react";
+import villa6 from "@/assets/villa-6.jpg";
 
 const Phase2 = () => {
   const ref = useRef(null);
@@ -38,13 +39,21 @@ const Phase2 = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 mb-12">
-          {/* Buyer Personas */}
+          {/* Featured Image + Buyer Personas */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className="space-y-6"
           >
-            <div className="flex items-center gap-3 mb-6">
+            <div className="rounded-2xl overflow-hidden">
+              <img 
+                src={villa6} 
+                alt="Modern luxury villa"
+                className="w-full h-48 object-cover"
+              />
+            </div>
+            <div className="flex items-center gap-3 mb-4">
               <Target className="w-6 h-6 text-gold" />
               <h3 className="text-2xl font-serif text-foreground">Buyer-Persona Targeting</h3>
             </div>
