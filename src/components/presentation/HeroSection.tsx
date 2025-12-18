@@ -15,7 +15,7 @@ const HeroSection = () => {
           alt="Luxury villa at Kesineni Northscape"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/70 to-primary/90" />
+        <div className="absolute inset-0 bg-primary/85" />
       </div>
 
       {/* Background Pattern */}

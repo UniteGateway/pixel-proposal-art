@@ -113,7 +113,7 @@ const Phase2 = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="bg-gradient-to-r from-gold/10 to-primary/10 rounded-2xl p-8 text-center"
+          className="bg-secondary border border-border rounded-2xl p-8 text-center"
         >
           <h3 className="text-xl font-serif text-foreground mb-4">Conversion-Focused Messaging</h3>
           <p className="text-muted-foreground max-w-2xl mx-auto">

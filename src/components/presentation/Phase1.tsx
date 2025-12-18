@@ -48,7 +48,7 @@ const Phase1 = () => {
                 className="w-full h-48 object-cover"
               />
             </div>
-            <div className="bg-gradient-to-br from-primary to-green-dark rounded-2xl p-8 text-primary-foreground">
+            <div className="bg-primary rounded-2xl p-8 text-primary-foreground">
               <h3 className="text-2xl font-serif mb-4">Objective</h3>
               <p className="text-lg opacity-90 mb-6">
                 Create buzz, establish price anchors, and generate initial momentum 

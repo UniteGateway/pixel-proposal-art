@@ -46,7 +46,7 @@ const Phase4 = () => {
             alt="Completed luxury villa"
             className="w-full h-64 object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-gold via-gold/80 to-transparent flex items-end">
+          <div className="absolute inset-0 bg-gold/90 flex items-end">
             <div className="p-8 text-center w-full">
               <h3 className="text-2xl md:text-3xl font-serif font-bold text-green-dark mb-2">
                 "Your Last Chance to Own a Piece of Paradise"
