@@ -14,27 +14,32 @@ import Phase2 from "@/components/presentation/Phase2";
 import Phase3 from "@/components/presentation/Phase3";
 import Phase4 from "@/components/presentation/Phase4";
 import PaymentOptions from "@/components/presentation/PaymentOptions";
+import { DeviceProvider, DeviceFrame } from "@/components/presentation/DevicePreview";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <HeroSection />
-      <ExecutiveSummary />
-      <ProjectOverview />
-      <LocationAdvantage />
-      <AboutUniteGreen />
-      <Leadership />
-      <MarketingStrategy />
-      <NRIConnect />
-      <BrandingStudy />
-      <PhaseOverview />
-      <Phase1 />
-      <Phase2 />
-      <Phase3 />
-      <Phase4 />
-      <PaymentOptions />
-    </div>
+    <DeviceProvider>
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <DeviceFrame>
+          <HeroSection />
+          <ExecutiveSummary />
+          <ProjectOverview />
+          <LocationAdvantage />
+          <AboutUniteGreen />
+          <Leadership />
+          <MarketingStrategy />
+          <NRIConnect />
+          <BrandingStudy />
+          <PhaseOverview />
+          <Phase1 />
+          <Phase2 />
+          <Phase3 />
+          <Phase4 />
+          <PaymentOptions />
+        </DeviceFrame>
+      </div>
+    </DeviceProvider>
   );
 };
 
