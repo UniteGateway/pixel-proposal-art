@@ -59,7 +59,7 @@ const ProjectOverview = () => {
                   alt={stat.label}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent" />
+                <div className="absolute inset-0 bg-card/60" />
               </div>
               <div className="p-6 -mt-6 relative">
                 <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-card border border-border mb-3 group-hover:border-gold/50 transition-colors">

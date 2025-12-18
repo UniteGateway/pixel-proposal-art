@@ -40,7 +40,7 @@ const Phase3 = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-1 bg-gradient-to-br from-primary to-green-dark rounded-2xl overflow-hidden text-primary-foreground"
+            className="lg:col-span-1 bg-primary rounded-2xl overflow-hidden text-primary-foreground"
           >
             <div className="h-40 overflow-hidden">
               <img 
