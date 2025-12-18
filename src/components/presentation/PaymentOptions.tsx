@@ -87,60 +87,68 @@ const PaymentOptions = () => {
           ))}
         </div>
 
-        {/* Contact Footer */}
+        {/* Corporate Footer */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="bg-gradient-to-r from-primary to-green-dark rounded-2xl p-8 md:p-12 text-primary-foreground"
+          className="bg-primary rounded-2xl p-8 md:p-12 text-primary-foreground"
         >
-          <div className="text-center mb-8">
+          <div className="text-center mb-10">
             <h3 className="text-2xl md:text-3xl font-serif font-bold mb-2">Let's Build Together</h3>
             <p className="opacity-80">Ready to transform Kesineni Northscape into the region's most sought-after address</p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="grid md:grid-cols-3 gap-8 mb-10">
             <div>
-              <h4 className="text-xl font-semibold mb-4 text-gold">Unite Green Infra Pvt Ltd</h4>
-              <p className="text-sm opacity-80 mb-4">Powered by Unite Group Inc., USA</p>
+              <h4 className="text-lg font-semibold mb-4 text-gold border-b border-gold/30 pb-2">Company</h4>
+              <p className="font-semibold mb-1">Unite Green Infra Pvt Ltd</p>
+              <p className="text-sm opacity-80 mb-3">Powered by Unite Group Inc., USA</p>
+              <p className="text-sm opacity-70">CIN: UXXXXX2024PTCXXXXXX</p>
+              <p className="text-sm opacity-70">RERA: PRAXXXXXXXX</p>
+            </div>
+
+            <div>
+              <h4 className="text-lg font-semibold mb-4 text-gold border-b border-gold/30 pb-2">Contact Us</h4>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-gold" />
-                  <span>contact@unitegreen.com</span>
+                  <Mail className="w-4 h-4 text-gold" />
+                  <span className="text-sm">contact@unitegreen.com</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-gold" />
-                  <span>+91 XXXXX XXXXX</span>
+                  <Phone className="w-4 h-4 text-gold" />
+                  <span className="text-sm">+91 XXXXX XXXXX</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5 text-gold" />
-                  <span>Hyderabad, India</span>
+                  <MapPin className="w-4 h-4 text-gold" />
+                  <span className="text-sm">Hyderabad, Telangana, India</span>
                 </div>
               </div>
             </div>
 
-            <div className="text-center md:text-right">
-              <div className="inline-block">
-                <div className="text-5xl md:text-6xl font-serif font-bold text-gold mb-2">430</div>
-                <div className="text-sm opacity-80">Villas Awaiting Success</div>
+            <div>
+              <h4 className="text-lg font-semibold mb-4 text-gold border-b border-gold/30 pb-2">Project Highlights</h4>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-center bg-primary-foreground/10 rounded-lg p-3">
+                  <div className="text-2xl font-serif font-bold text-gold">430</div>
+                  <div className="text-xs opacity-80">Premium Villas</div>
+                </div>
+                <div className="text-center bg-primary-foreground/10 rounded-lg p-3">
+                  <div className="text-2xl font-serif font-bold text-gold">43</div>
+                  <div className="text-xs opacity-80">Acres</div>
+                </div>
               </div>
             </div>
           </div>
-        </motion.div>
 
-        {/* Final Footer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="mt-12 text-center"
-        >
-          <p className="text-muted-foreground text-sm">
-            © 2024 Unite Green Infra Pvt Ltd. All rights reserved.
-          </p>
-          <p className="text-muted-foreground/60 text-xs mt-2">
-            This proposal is confidential and intended for Kesineni Developers.
-          </p>
+          <div className="border-t border-primary-foreground/20 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm opacity-70">
+              © 2024 Unite Green Infra Pvt Ltd. All rights reserved.
+            </p>
+            <p className="text-xs opacity-50 text-center md:text-right">
+              This proposal is confidential and intended for Kesineni Developers.
+            </p>
+          </div>
         </motion.div>
       </div>
     </section>
