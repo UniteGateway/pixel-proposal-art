@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Clock, Home, Award, Users, CheckCircle, Sparkles } from "lucide-react";
+import villa8 from "@/assets/villa-8.jpg";
 
 const Phase4 = () => {
   const ref = useRef(null);
@@ -33,17 +34,26 @@ const Phase4 = () => {
           <div className="w-24 h-1 bg-gold mx-auto mt-6" />
         </motion.div>
 
-        {/* Urgency Banner */}
+        {/* Featured Image + Urgency Banner */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="bg-gradient-to-r from-gold to-gold-dark rounded-2xl p-8 text-center mb-12"
+          className="relative rounded-2xl overflow-hidden mb-12"
         >
-          <h3 className="text-2xl md:text-3xl font-serif font-bold text-green-dark mb-2">
-            "Your Last Chance to Own a Piece of Paradise"
-          </h3>
-          <p className="text-green-dark/80">Creating FOMO with urgency-driven messaging</p>
+          <img 
+            src={villa8} 
+            alt="Completed luxury villa"
+            className="w-full h-64 object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-gold via-gold/80 to-transparent flex items-end">
+            <div className="p-8 text-center w-full">
+              <h3 className="text-2xl md:text-3xl font-serif font-bold text-green-dark mb-2">
+                "Your Last Chance to Own a Piece of Paradise"
+              </h3>
+              <p className="text-green-dark/80">Creating FOMO with urgency-driven messaging</p>
+            </div>
+          </div>
         </motion.div>
 
         {/* Strategies Grid */}

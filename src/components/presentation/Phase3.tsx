@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { TrendingUp, Building2, Plane, DollarSign, Users, BarChart3 } from "lucide-react";
+import villa7 from "@/assets/villa-7.jpg";
 
 const Phase3 = () => {
   const ref = useRef(null);
@@ -34,31 +35,40 @@ const Phase3 = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8 mb-12">
-          {/* Main Strategy Card */}
+          {/* Main Strategy Card with Image */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-1 bg-gradient-to-br from-primary to-green-dark rounded-2xl p-8 text-primary-foreground"
+            className="lg:col-span-1 bg-gradient-to-br from-primary to-green-dark rounded-2xl overflow-hidden text-primary-foreground"
           >
-            <TrendingUp className="w-12 h-12 text-gold mb-6" />
-            <h3 className="text-2xl font-serif mb-4">Value Maximization</h3>
-            <p className="opacity-90 mb-6">
-              This phase focuses on extracting maximum value through strategic pricing 
-              and targeting high-value buyer segments.
-            </p>
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-gold" />
-                <span className="text-sm">15-20% price appreciation target</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-gold" />
-                <span className="text-sm">Corporate & bulk sale focus</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-gold" />
-                <span className="text-sm">International investor roadshows</span>
+            <div className="h-40 overflow-hidden">
+              <img 
+                src={villa7} 
+                alt="Premium villa exterior"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-8">
+              <TrendingUp className="w-10 h-10 text-gold mb-4" />
+              <h3 className="text-2xl font-serif mb-4">Value Maximization</h3>
+              <p className="opacity-90 mb-6">
+                This phase focuses on extracting maximum value through strategic pricing 
+                and targeting high-value buyer segments.
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-gold" />
+                  <span className="text-sm">15-20% price appreciation target</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-gold" />
+                  <span className="text-sm">Corporate & bulk sale focus</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 rounded-full bg-gold" />
+                  <span className="text-sm">International investor roadshows</span>
+                </div>
               </div>
             </div>
           </motion.div>
