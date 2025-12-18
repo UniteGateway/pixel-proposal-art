@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Download, Loader2 } from "lucide-react";
+import html2pdf from "html2pdf.js";
+import { useToast } from "@/hooks/use-toast";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const { toast } = useToast();
 
   const sections = [
     { id: "hero", label: "Home" },
@@ -30,6 +34,48 @@ const Navigation = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
       setIsOpen(false);
+    }
+  };
+
+  const handleDownloadPDF = async () => {
+    setIsGenerating(true);
+    toast({
+      title: "Generating PDF",
+      description: "Please wait while we prepare your document...",
+    });
+
+    try {
+      const element = document.querySelector(".min-h-screen") as HTMLElement | null;
+      if (!element) return;
+
+      const opt = {
+        margin: 0,
+        filename: "Kesineni-Northscape-Proposal.pdf",
+        image: { type: "jpeg" as const, quality: 0.98 },
+        html2canvas: { 
+          scale: 2, 
+          useCORS: true,
+          logging: false,
+          scrollY: -window.scrollY,
+        },
+        jsPDF: { unit: "in", format: "a4", orientation: "portrait" as const },
+        pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+      };
+
+      await html2pdf().set(opt).from(element).save();
+
+      toast({
+        title: "PDF Downloaded",
+        description: "Your presentation has been saved successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Download Failed",
+        description: "There was an error generating the PDF. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -70,15 +116,46 @@ const Navigation = () => {
                   {section.label}
                 </button>
               ))}
+              
+              {/* PDF Download Button */}
+              <button
+                onClick={handleDownloadPDF}
+                disabled={isGenerating}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                  scrolled
+                    ? "bg-gold text-green-dark hover:bg-gold-light"
+                    : "bg-gold/90 text-green-dark hover:bg-gold"
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
+              >
+                {isGenerating ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Download className="w-4 h-4" />
+                )}
+                {isGenerating ? "Generating..." : "Download PDF"}
+              </button>
             </div>
 
             {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className={`lg:hidden p-2 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            <div className="flex lg:hidden items-center gap-2">
+              <button
+                onClick={handleDownloadPDF}
+                disabled={isGenerating}
+                className={`p-2 rounded-full ${scrolled ? "bg-gold text-green-dark" : "bg-gold/90 text-green-dark"}`}
+              >
+                {isGenerating ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <Download className="w-5 h-5" />
+                )}
+              </button>
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className={`p-2 ${scrolled ? "text-foreground" : "text-primary-foreground"}`}
+              >
+                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -107,6 +184,23 @@ const Navigation = () => {
                     {section.label}
                   </motion.button>
                 ))}
+                
+                {/* Mobile PDF Download */}
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: sections.length * 0.1 }}
+                  onClick={handleDownloadPDF}
+                  disabled={isGenerating}
+                  className="flex items-center gap-2 px-6 py-3 bg-gold text-green-dark rounded-full font-medium mt-4"
+                >
+                  {isGenerating ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <Download className="w-5 h-5" />
+                  )}
+                  {isGenerating ? "Generating..." : "Download PDF"}
+                </motion.button>
               </div>
             </div>
           </motion.div>
