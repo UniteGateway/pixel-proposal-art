@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download, Loader2 } from "lucide-react";
 import html2pdf from "html2pdf.js";
 import { useToast } from "@/hooks/use-toast";
+import { DeviceSelector } from "./DevicePreview";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -104,7 +105,7 @@ const Navigation = () => {
             </button>
 
             {/* Desktop Menu */}
-            <div className="hidden lg:flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-4">
               {sections.map((section) => (
                 <button
                   key={section.id}
@@ -116,6 +117,9 @@ const Navigation = () => {
                   {section.label}
                 </button>
               ))}
+              
+              {/* Device Selector */}
+              <DeviceSelector scrolled={scrolled} />
               
               {/* PDF Download Button */}
               <button
