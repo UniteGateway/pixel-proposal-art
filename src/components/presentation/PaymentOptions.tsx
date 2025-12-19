@@ -138,7 +138,7 @@ const PaymentOptions = () => {
                   <div className="text-xs opacity-80">Premium Villas</div>
                 </div>
                 <div className="text-center bg-primary-foreground/10 rounded-lg p-3">
-                  <div className="text-2xl font-serif font-bold text-gold">43</div>
+                  <div className="text-2xl font-serif font-bold text-gold">30</div>
                   <div className="text-xs opacity-80">Acres</div>
                 </div>
               </div>
