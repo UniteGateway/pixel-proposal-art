@@ -40,32 +40,44 @@ import {
 } from "recharts";
 import logoNorthscape from "@/assets/logo-northscape.png";
 
-// Sales projection data for 2 years
+// Sales projection data for 2 years (2025-2027)
 const salesProjectionData = [
-  { month: "Jan 24", units: 8, revenue: 12 },
-  { month: "Feb 24", units: 12, revenue: 18 },
-  { month: "Mar 24", units: 15, revenue: 22 },
-  { month: "Apr 24", units: 18, revenue: 27 },
-  { month: "May 24", units: 22, revenue: 33 },
-  { month: "Jun 24", units: 28, revenue: 42 },
-  { month: "Jul 24", units: 32, revenue: 48 },
-  { month: "Aug 24", units: 38, revenue: 57 },
-  { month: "Sep 24", units: 42, revenue: 63 },
-  { month: "Oct 24", units: 48, revenue: 72 },
-  { month: "Nov 24", units: 55, revenue: 82 },
-  { month: "Dec 24", units: 62, revenue: 93 },
-  { month: "Jan 25", units: 70, revenue: 105 },
-  { month: "Feb 25", units: 78, revenue: 117 },
-  { month: "Mar 25", units: 88, revenue: 132 },
-  { month: "Apr 25", units: 98, revenue: 147 },
-  { month: "May 25", units: 110, revenue: 165 },
-  { month: "Jun 25", units: 122, revenue: 183 },
-  { month: "Jul 25", units: 135, revenue: 202 },
-  { month: "Aug 25", units: 150, revenue: 225 },
-  { month: "Sep 25", units: 165, revenue: 247 },
-  { month: "Oct 25", units: 180, revenue: 270 },
-  { month: "Nov 25", units: 195, revenue: 292 },
-  { month: "Dec 25", units: 210, revenue: 315 },
+  { month: "Jan 25", units: 8, revenue: 12 },
+  { month: "Feb 25", units: 12, revenue: 18 },
+  { month: "Mar 25", units: 15, revenue: 22 },
+  { month: "Apr 25", units: 18, revenue: 27 },
+  { month: "May 25", units: 22, revenue: 33 },
+  { month: "Jun 25", units: 28, revenue: 42 },
+  { month: "Jul 25", units: 32, revenue: 48 },
+  { month: "Aug 25", units: 38, revenue: 57 },
+  { month: "Sep 25", units: 42, revenue: 63 },
+  { month: "Oct 25", units: 48, revenue: 72 },
+  { month: "Nov 25", units: 55, revenue: 82 },
+  { month: "Dec 25", units: 62, revenue: 93 },
+  { month: "Jan 26", units: 70, revenue: 105 },
+  { month: "Feb 26", units: 78, revenue: 117 },
+  { month: "Mar 26", units: 88, revenue: 132 },
+  { month: "Apr 26", units: 98, revenue: 147 },
+  { month: "May 26", units: 110, revenue: 165 },
+  { month: "Jun 26", units: 122, revenue: 183 },
+  { month: "Jul 26", units: 135, revenue: 202 },
+  { month: "Aug 26", units: 150, revenue: 225 },
+  { month: "Sep 26", units: 165, revenue: 247 },
+  { month: "Oct 26", units: 180, revenue: 270 },
+  { month: "Nov 26", units: 195, revenue: 292 },
+  { month: "Dec 26", units: 210, revenue: 315 },
+  { month: "Jan 27", units: 225, revenue: 337 },
+  { month: "Feb 27", units: 240, revenue: 360 },
+  { month: "Mar 27", units: 255, revenue: 382 },
+  { month: "Apr 27", units: 270, revenue: 405 },
+  { month: "May 27", units: 285, revenue: 427 },
+  { month: "Jun 27", units: 300, revenue: 450 },
+  { month: "Jul 27", units: 320, revenue: 480 },
+  { month: "Aug 27", units: 345, revenue: 517 },
+  { month: "Sep 27", units: 370, revenue: 555 },
+  { month: "Oct 27", units: 395, revenue: 592 },
+  { month: "Nov 27", units: 415, revenue: 622 },
+  { month: "Dec 27", units: 435, revenue: 652 },
 ];
 
 // Hyderabad growth data
@@ -394,7 +406,7 @@ const Dashboard = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-accent" />
-                  2-Year Sales Projections (2024-2025)
+                  2-Year Sales Projections (2025-2027)
                 </CardTitle>
               </CardHeader>
               <CardContent>
