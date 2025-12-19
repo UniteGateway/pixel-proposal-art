@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import heroVilla from "@/assets/hero-villa.jpg";
+import logoKesineni from "@/assets/logo-kesineni.png";
+import logoNorthscape from "@/assets/logo-northscape.png";
+import logoUnite from "@/assets/logo-unite.png";
 
 const HeroSection = () => {
   return (
@@ -38,16 +41,18 @@ const HeroSection = () => {
           </span>
         </motion.div>
 
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-primary-foreground mb-6 leading-tight"
+          className="mb-8"
         >
-          KESINENI
-          <br />
-          <span className="text-gold">NORTHSCAPE</span>
-        </motion.h1>
+          <img
+            src={logoNorthscape}
+            alt="Northscape Logo"
+            className="h-24 md:h-32 mx-auto brightness-0 invert"
+          />
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -78,14 +83,22 @@ const HeroSection = () => {
           className="flex flex-col md:flex-row items-center justify-center gap-8 pt-8 border-t border-primary-foreground/20"
         >
           <div className="text-center">
-            <p className="text-primary-foreground/60 text-xs uppercase tracking-wider mb-2">Developed By</p>
-            <p className="text-primary-foreground font-bold text-lg md:text-xl">Kesineni Infra Developers LLP</p>
+            <p className="text-primary-foreground/60 text-xs uppercase tracking-wider mb-3">Developed By</p>
+            <img
+              src={logoKesineni}
+              alt="Kesineni Developers"
+              className="h-12 md:h-16 mx-auto brightness-0 invert"
+            />
           </div>
-          <div className="hidden md:block w-px h-16 bg-primary-foreground/20" />
+          <div className="hidden md:block w-px h-20 bg-primary-foreground/20" />
           <div className="text-center">
-            <p className="text-primary-foreground/60 text-xs uppercase tracking-wider mb-2">Marketing Partner</p>
-            <p className="text-primary-foreground font-bold text-lg md:text-xl">Unite Green Infra Pvt Ltd</p>
-            <p className="text-gold text-sm mt-1">Powered by Unite Group Inc., USA</p>
+            <p className="text-primary-foreground/60 text-xs uppercase tracking-wider mb-3">Marketing Partner</p>
+            <img
+              src={logoUnite}
+              alt="Unite Constructions"
+              className="h-10 md:h-14 mx-auto brightness-0 invert"
+            />
+            <p className="text-gold text-sm mt-2">Powered by Unite Group Inc., USA</p>
           </div>
         </motion.div>
 
