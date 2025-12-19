@@ -37,7 +37,25 @@ import {
   LineChart,
   Line,
   Legend,
+  ReferenceLine,
+  ReferenceDot,
 } from "recharts";
+
+// Quarterly milestones for sales projections
+const quarterlyMilestones = [
+  { month: "Mar 25", label: "Q1 2025", target: 15, achievement: "Phase 1 Launch" },
+  { month: "Jun 25", label: "Q2 2025", target: 28, achievement: "50 Units Milestone" },
+  { month: "Sep 25", label: "Q3 2025", target: 42, achievement: "Pre-launch Buzz" },
+  { month: "Dec 25", label: "Q4 2025", target: 62, achievement: "Year 1 Target" },
+  { month: "Mar 26", label: "Q1 2026", target: 88, achievement: "Phase 2 Launch" },
+  { month: "Jun 26", label: "Q2 2026", target: 122, achievement: "100+ Units" },
+  { month: "Sep 26", label: "Q3 2026", target: 165, achievement: "Phase 3 Start" },
+  { month: "Dec 26", label: "Q4 2026", target: 210, achievement: "Year 2 Target" },
+  { month: "Mar 27", label: "Q1 2027", target: 255, achievement: "250 Units" },
+  { month: "Jun 27", label: "Q2 2027", target: 300, achievement: "Phase 4 Launch" },
+  { month: "Sep 27", label: "Q3 2027", target: 370, achievement: "Final Push" },
+  { month: "Dec 27", label: "Q4 2027", target: 435, achievement: "Project Complete" },
+];
 import logoNorthscape from "@/assets/logo-northscape.png";
 
 // Sales projection data for 2 years (2025-2027)
@@ -427,8 +445,49 @@ const Dashboard = () => {
                       <XAxis dataKey="month" tick={{ fontSize: 11 }} interval={2} />
                       <YAxis yAxisId="left" orientation="left" />
                       <YAxis yAxisId="right" orientation="right" />
-                      <Tooltip />
+                      <Tooltip 
+                        content={({ active, payload, label }) => {
+                          if (active && payload && payload.length) {
+                            const milestone = quarterlyMilestones.find(m => m.month === label);
+                            return (
+                              <div className="bg-background border border-border rounded-lg p-3 shadow-lg">
+                                <p className="font-semibold text-foreground">{label}</p>
+                                {milestone && (
+                                  <p className="text-accent font-medium text-sm mb-1">
+                                    🎯 {milestone.achievement}
+                                  </p>
+                                )}
+                                <p className="text-sm text-muted-foreground">
+                                  Units: {payload[0]?.value}
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  Revenue: ₹{payload[1]?.value} Cr
+                                </p>
+                              </div>
+                            );
+                          }
+                          return null;
+                        }}
+                      />
                       <Legend />
+                      {/* Quarterly milestone reference lines */}
+                      {quarterlyMilestones.filter((_, i) => i % 4 === 3).map((milestone) => (
+                        <ReferenceLine
+                          key={milestone.month}
+                          x={milestone.month}
+                          yAxisId="left"
+                          stroke="#c9a227"
+                          strokeDasharray="5 5"
+                          strokeWidth={2}
+                          label={{
+                            value: milestone.label,
+                            position: "top",
+                            fill: "#c9a227",
+                            fontSize: 10,
+                            fontWeight: "bold",
+                          }}
+                        />
+                      ))}
                       <Area
                         yAxisId="left"
                         type="monotone"
@@ -447,8 +506,33 @@ const Dashboard = () => {
                         fill="url(#colorRevenue)"
                         name="Revenue (₹ Cr)"
                       />
+                      {/* Quarterly milestone dots */}
+                      {quarterlyMilestones.map((milestone, index) => (
+                        <ReferenceDot
+                          key={milestone.month}
+                          x={milestone.month}
+                          y={milestone.target}
+                          yAxisId="left"
+                          r={6}
+                          fill={index % 4 === 3 ? "#c9a227" : "#2d5a3d"}
+                          stroke="#fff"
+                          strokeWidth={2}
+                        />
+                      ))}
                     </AreaChart>
                   </ResponsiveContainer>
+                </div>
+                {/* Milestone Legend */}
+                <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-2">
+                  {quarterlyMilestones.filter((_, i) => i % 4 === 3).map((milestone) => (
+                    <div key={milestone.label} className="flex items-center gap-2 text-xs bg-muted/50 rounded-lg p-2">
+                      <div className="w-3 h-3 rounded-full bg-accent" />
+                      <div>
+                        <span className="font-semibold">{milestone.label}:</span>{" "}
+                        <span className="text-muted-foreground">{milestone.achievement}</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
