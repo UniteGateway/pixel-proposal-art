@@ -23,22 +23,22 @@ const Index = () => {
       <div id="presentation-content" className="min-h-screen bg-background">
         <Navigation />
         <DeviceFrame>
-          <HeroSection />
-          <ExecutiveSummary />
-          <ProjectOverview />
-          <LocationAdvantage />
-          <AboutUniteGreen />
-          <Leadership />
-          <MarketingStrategy />
-          <NRIConnect />
-          <BrandingStudy />
-          <PhaseOverview />
-          <Phase1 />
-          <Phase2 />
-          <Phase3 />
-          <Phase4 />
-          <PricingStrategy />
-          <PaymentOptions />
+          <section id="hero"><HeroSection /></section>
+          <section id="executive-summary"><ExecutiveSummary /></section>
+          <section id="project-overview"><ProjectOverview /></section>
+          <section id="location"><LocationAdvantage /></section>
+          <section id="about-unite"><AboutUniteGreen /></section>
+          <section id="leadership"><Leadership /></section>
+          <section id="marketing-strategy"><MarketingStrategy /></section>
+          <section id="nri-connect"><NRIConnect /></section>
+          <section id="branding-study"><BrandingStudy /></section>
+          <section id="phase-overview"><PhaseOverview /></section>
+          <section id="phase-1"><Phase1 /></section>
+          <section id="phase-2"><Phase2 /></section>
+          <section id="phase-3"><Phase3 /></section>
+          <section id="phase-4"><Phase4 /></section>
+          <section id="pricing-strategy"><PricingStrategy /></section>
+          <section id="payment"><PaymentOptions /></section>
         </DeviceFrame>
       </div>
     </DeviceProvider>

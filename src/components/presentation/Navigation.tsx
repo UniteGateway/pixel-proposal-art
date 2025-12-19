@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Download, Loader2 } from "lucide-react";
-import html2pdf from "html2pdf.js";
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 import { useToast } from "@/hooks/use-toast";
 import { DeviceSelector } from "./DevicePreview";
 import logoNorthscape from "@/assets/logo-northscape.png";
@@ -11,6 +12,26 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const { toast } = useToast();
+
+  // All section IDs that should be captured as separate pages
+  const pdfSections = [
+    "hero",
+    "executive-summary",
+    "project-overview",
+    "location",
+    "about-unite",
+    "leadership",
+    "marketing-strategy",
+    "nri-connect",
+    "branding-study",
+    "phase-overview",
+    "phase-1",
+    "phase-2",
+    "phase-3",
+    "phase-4",
+    "pricing-strategy",
+    "payment",
+  ];
 
   const sections = [
     { id: "hero", label: "Home" },
@@ -43,51 +64,78 @@ const Navigation = () => {
     setIsGenerating(true);
     toast({
       title: "Generating PDF",
-      description: "Please wait while we prepare your presentation...",
+      description: "Capturing all sections... This may take a moment.",
     });
 
     try {
-      const element = document.getElementById("presentation-content");
-      if (!element) {
-        throw new Error("Content not found");
-      }
+      // Create PDF in landscape A4 format
+      const pdf = new jsPDF({
+        orientation: "landscape",
+        unit: "mm",
+        format: "a4",
+      });
 
-      // Clone the element to avoid modifying the original
-      const clone = element.cloneNode(true) as HTMLElement;
-      
-      // Remove animations and transitions for clean capture
-      clone.style.cssText = "position: absolute; left: -9999px; top: 0; width: 1920px;";
-      document.body.appendChild(clone);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
 
-      const opt = {
-        margin: [10, 10, 10, 10] as [number, number, number, number],
-        filename: "Kesineni-Northscape-Presentation.pdf",
-        image: { type: "jpeg" as const, quality: 0.98 },
-        html2canvas: { 
+      let isFirstPage = true;
+
+      for (const sectionId of pdfSections) {
+        const element = document.getElementById(sectionId);
+        if (!element) {
+          console.warn(`Section not found: ${sectionId}`);
+          continue;
+        }
+
+        // Scroll element into view to ensure it's rendered
+        element.scrollIntoView({ behavior: "instant", block: "start" });
+        
+        // Wait for any lazy-loaded content
+        await new Promise((resolve) => setTimeout(resolve, 300));
+
+        // Capture the section
+        const canvas = await html2canvas(element, {
           scale: 2,
           useCORS: true,
-          logging: false,
           allowTaint: true,
           backgroundColor: "#ffffff",
-        },
-        jsPDF: { 
-          unit: "mm", 
-          format: "a4",
-          orientation: "portrait" as const 
-        },
-        pagebreak: { mode: ["css", "legacy"], before: ".pdf-page-break" },
-      };
+          logging: false,
+          windowWidth: element.scrollWidth,
+          windowHeight: element.scrollHeight,
+        });
 
-      await html2pdf().set(opt).from(clone).save();
-      
-      // Clean up clone
-      document.body.removeChild(clone);
+        const imgData = canvas.toDataURL("image/jpeg", 0.95);
+        
+        // Calculate dimensions to fit the page while maintaining aspect ratio
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+        const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
+        const scaledWidth = imgWidth * ratio;
+        const scaledHeight = imgHeight * ratio;
+        
+        // Center the image on the page
+        const x = (pdfWidth - scaledWidth) / 2;
+        const y = (pdfHeight - scaledHeight) / 2;
+
+        if (!isFirstPage) {
+          pdf.addPage();
+        }
+        isFirstPage = false;
+
+        pdf.addImage(imgData, "JPEG", x, y, scaledWidth, scaledHeight);
+      }
+
+      // Scroll back to top
+      window.scrollTo({ top: 0, behavior: "instant" });
+
+      pdf.save("Kesineni-Northscape-Presentation.pdf");
 
       toast({
         title: "PDF Downloaded",
-        description: "Your high-resolution 16:9 presentation has been saved.",
+        description: `Successfully captured ${pdfSections.length} pages.`,
       });
     } catch (error) {
+      console.error("PDF generation error:", error);
       toast({
         title: "Download Failed",
         description: "There was an error generating the PDF. Please try again.",
