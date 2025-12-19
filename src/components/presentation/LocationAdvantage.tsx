@@ -94,9 +94,12 @@ const LocationAdvantage = () => {
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {growthFactors.map((factor, index) => (
-              <div key={index} className="border-l-2 border-gold pl-4">
-                <h4 className="font-semibold mb-1">{factor.title}</h4>
-                <p className="text-sm text-primary-foreground/70">{factor.desc}</p>
+              <div 
+                key={index} 
+                className="border-l-2 border-gold pl-4 transition-all duration-300 hover:border-l-4 hover:pl-5 hover:bg-white/5 py-3 -my-3 rounded-r-lg cursor-pointer group"
+              >
+                <h4 className="font-semibold mb-1 group-hover:text-gold transition-colors">{factor.title}</h4>
+                <p className="text-sm text-primary-foreground/70 group-hover:text-primary-foreground/90 transition-colors">{factor.desc}</p>
               </div>
             ))}
           </div>
