@@ -104,8 +104,7 @@ const PaymentOptions = () => {
               <h4 className="text-lg font-semibold mb-4 text-gold border-b border-gold/30 pb-2">Company</h4>
               <p className="font-semibold mb-1">Unite Green Infra Pvt Ltd</p>
               <p className="text-sm opacity-80 mb-3">Powered by Unite Group Inc., USA</p>
-              <p className="text-sm opacity-70">CIN: UXXXXX2024PTCXXXXXX</p>
-              <p className="text-sm opacity-70">RERA: PRAXXXXXXXX</p>
+              <p className="text-sm opacity-70">RERA: P02200010116</p>
             </div>
 
             <div>
@@ -113,11 +112,11 @@ const PaymentOptions = () => {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-gold" />
-                  <span className="text-sm">contact@unitegreen.com</span>
+                  <span className="text-sm">unitegateway@gmail.com</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-gold" />
-                  <span className="text-sm">+91 XXXXX XXXXX</span>
+                  <span className="text-sm">77990 54567 | 966 766 0773</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <MapPin className="w-4 h-4 text-gold" />
