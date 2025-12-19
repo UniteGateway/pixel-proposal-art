@@ -10,6 +10,8 @@ declare module "html2pdf.js" {
       scrollY?: number;
       windowWidth?: number;
       windowHeight?: number;
+      allowTaint?: boolean;
+      backgroundColor?: string;
     };
     jsPDF?: { unit?: string; format?: string | [number, number]; orientation?: "landscape" | "portrait" };
     pagebreak?: { mode?: string[] };
