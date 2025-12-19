@@ -14,6 +14,46 @@ interface EmailRequest {
   message?: string;
 }
 
+// HTML escape function to prevent XSS
+function escapeHtml(text: string): string {
+  const map: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return text.replace(/[&<>"']/g, m => map[m]);
+}
+
+// Simple email validation
+function isValidEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email) && email.length <= 255;
+}
+
+// Simple in-memory rate limiting (resets on function cold start)
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT = 5; // max emails per window
+const RATE_WINDOW = 60 * 60 * 1000; // 1 hour in ms
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const record = rateLimitMap.get(ip);
+  
+  if (!record || now > record.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_WINDOW });
+    return true;
+  }
+  
+  if (record.count >= RATE_LIMIT) {
+    return false;
+  }
+  
+  record.count++;
+  return true;
+}
+
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
@@ -21,7 +61,72 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { recipientEmail, recipientName, senderName, message }: EmailRequest = await req.json();
+    // Get client IP for rate limiting
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || 
+                     req.headers.get("x-real-ip") || 
+                     "unknown";
+    
+    // Check rate limit
+    if (!checkRateLimit(clientIp)) {
+      console.log("Rate limit exceeded for IP:", clientIp);
+      return new Response(
+        JSON.stringify({ success: false, error: "Too many requests. Please try again later." }),
+        {
+          status: 429,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    const body = await req.json();
+    const { recipientEmail, recipientName, senderName, message }: EmailRequest = body;
+
+    // Server-side input validation
+    if (!recipientEmail || !recipientName || !senderName) {
+      return new Response(
+        JSON.stringify({ success: false, error: "Missing required fields" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    if (!isValidEmail(recipientEmail)) {
+      return new Response(
+        JSON.stringify({ success: false, error: "Invalid email address" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Validate input lengths
+    if (recipientName.length > 100 || senderName.length > 100) {
+      return new Response(
+        JSON.stringify({ success: false, error: "Name too long (max 100 characters)" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    if (message && message.length > 500) {
+      return new Response(
+        JSON.stringify({ success: false, error: "Message too long (max 500 characters)" }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Sanitize all user inputs for HTML context
+    const safeRecipientName = escapeHtml(recipientName.trim());
+    const safeSenderName = escapeHtml(senderName.trim());
+    const safeMessage = message ? escapeHtml(message.trim()) : '';
 
     console.log("Sending presentation email to:", recipientEmail);
 
@@ -59,15 +164,15 @@ const handler = async (req: Request): Promise<Response> => {
                   <tr>
                     <td style="padding: 40px;">
                       <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 20px;">
-                        Dear ${recipientName},
+                        Dear ${safeRecipientName},
                       </p>
                       <p style="color: #555; font-size: 15px; line-height: 1.7; margin: 0 0 20px;">
-                        ${senderName} has shared the exclusive Kesineni Northscape presentation with you. This premium villa project offers an exceptional opportunity to own a luxury home in one of Hyderabad's most sought-after locations.
+                        ${safeSenderName} has shared the exclusive Kesineni Northscape presentation with you. This premium villa project offers an exceptional opportunity to own a luxury home in one of Hyderabad's most sought-after locations.
                       </p>
-                      ${message ? `
+                      ${safeMessage ? `
                       <div style="background-color: #f8f8f8; border-left: 4px solid #d4af37; padding: 15px 20px; margin: 25px 0;">
-                        <p style="color: #666; font-size: 14px; font-style: italic; margin: 0;">"${message}"</p>
-                        <p style="color: #888; font-size: 12px; margin: 10px 0 0;">— ${senderName}</p>
+                        <p style="color: #666; font-size: 14px; font-style: italic; margin: 0;">"${safeMessage}"</p>
+                        <p style="color: #888; font-size: 12px; margin: 10px 0 0;">— ${safeSenderName}</p>
                       </div>
                       ` : ''}
                       
@@ -76,7 +181,7 @@ const handler = async (req: Request): Promise<Response> => {
                       <ul style="color: #555; font-size: 14px; line-height: 1.8; padding-left: 20px; margin: 0 0 25px;">
                         <li>Premium 4 BHK Villas starting from ₹3.5 Cr</li>
                         <li>Prime location near Kompally, North Hyderabad</li>
-                        <li>World-class amenities & green living</li>
+                        <li>World-class amenities &amp; green living</li>
                         <li>RERA approved project</li>
                         <li>Flexible payment plans available</li>
                       </ul>
@@ -112,6 +217,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     if (!emailResponse.ok) {
       const errorData = await emailResponse.json();
+      console.error("Resend API error:", errorData);
       throw new Error(errorData.message || "Failed to send email");
     }
 
@@ -125,7 +231,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error sending email:", error);
     return new Response(
-      JSON.stringify({ success: false, error: error.message }),
+      JSON.stringify({ success: false, error: "Failed to send email. Please try again." }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
