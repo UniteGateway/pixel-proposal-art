@@ -79,13 +79,32 @@ const HeroSection = () => {
         >
           <div className="text-center">
             <p className="text-primary-foreground/60 text-xs uppercase tracking-wider mb-2">Developed By</p>
-            <p className="text-primary-foreground font-semibold">Kesineni Infra Developers LLP</p>
+            <p className="text-primary-foreground font-bold text-lg md:text-xl">Kesineni Infra Developers LLP</p>
           </div>
-          <div className="hidden md:block w-px h-12 bg-primary-foreground/20" />
+          <div className="hidden md:block w-px h-16 bg-primary-foreground/20" />
           <div className="text-center">
             <p className="text-primary-foreground/60 text-xs uppercase tracking-wider mb-2">Marketing Partner</p>
-            <p className="text-primary-foreground font-semibold">Unite Green Infra Pvt Ltd</p>
-            <p className="text-gold text-xs mt-1">Powered by Unite Group Inc., USA</p>
+            <p className="text-primary-foreground font-bold text-lg md:text-xl">Unite Green Infra Pvt Ltd</p>
+            <p className="text-gold text-sm mt-1">Powered by Unite Group Inc., USA</p>
+          </div>
+        </motion.div>
+
+        {/* Contact Info */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="flex flex-col md:flex-row items-center justify-center gap-6 mt-6 text-primary-foreground/80"
+        >
+          <div className="flex items-center gap-2">
+            <span className="text-gold text-sm font-medium">RERA:</span>
+            <span className="text-sm">P02200010116</span>
+          </div>
+          <div className="hidden md:block w-px h-4 bg-primary-foreground/20" />
+          <div className="flex items-center gap-4">
+            <span className="text-sm">77990 54567</span>
+            <span className="text-primary-foreground/40">|</span>
+            <span className="text-sm">966 766 0773</span>
           </div>
         </motion.div>
       </div>
