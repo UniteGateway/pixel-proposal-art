@@ -159,20 +159,24 @@ const Dashboard = () => {
           {/* Quick Stats */}
           <div className="mt-8 p-4 bg-primary/10 rounded-xl">
             <h3 className="text-sm font-semibold text-foreground mb-3">Quick Stats</h3>
-            <div className="space-y-3">
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Total Villas</span>
-                <span className="font-semibold text-foreground">210</span>
+              <div className="space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Total Villas</span>
+                  <span className="font-semibold text-foreground">435</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Project Area</span>
+                  <span className="font-semibold text-foreground">30 Acres</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Project Cost</span>
+                  <span className="font-semibold text-foreground">₹800-900 Cr</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted-foreground">Timeline</span>
+                  <span className="font-semibold text-foreground">2-3 Years</span>
+                </div>
               </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Project Area</span>
-                <span className="font-semibold text-foreground">25 Acres</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">Phases</span>
-                <span className="font-semibold text-foreground">4</span>
-              </div>
-            </div>
           </div>
         </aside>
 
@@ -190,9 +194,9 @@ const Dashboard = () => {
                   <CardTitle className="text-sm font-medium opacity-90">Total Project Value</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold">₹315 Cr</div>
+                  <div className="text-3xl font-bold">₹800-900 Cr</div>
                   <p className="text-xs opacity-75 mt-1 flex items-center gap-1">
-                    <ArrowUpRight className="w-3 h-3" /> 24% projected growth
+                    <ArrowUpRight className="w-3 h-3" /> 2-3 Years Timeline
                   </p>
                 </CardContent>
               </Card>
@@ -202,7 +206,7 @@ const Dashboard = () => {
                   <CardTitle className="text-sm font-medium opacity-90">Total Units</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold">210</div>
+                  <div className="text-3xl font-bold">435</div>
                   <p className="text-xs opacity-75 mt-1">Premium Villas</p>
                 </CardContent>
               </Card>
@@ -212,19 +216,19 @@ const Dashboard = () => {
                   <CardTitle className="text-sm font-medium text-muted-foreground">Project Area</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-foreground">25 Acres</div>
+                  <div className="text-3xl font-bold text-foreground">30 Acres</div>
                   <p className="text-xs text-muted-foreground mt-1">Dundigal, Hyderabad</p>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader className="pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">Avg. Price/Sqft</CardTitle>
+                  <CardTitle className="text-sm font-medium text-muted-foreground">Project Timeline</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-foreground">₹5,500</div>
+                  <div className="text-3xl font-bold text-foreground">2-3 Years</div>
                   <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
-                    <ArrowUpRight className="w-3 h-3 text-green-600" /> 12% YoY appreciation
+                    <ArrowUpRight className="w-3 h-3 text-green-600" /> Phased Development
                   </p>
                 </CardContent>
               </Card>
