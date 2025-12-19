@@ -41,18 +41,16 @@ const HeroSection = () => {
           </span>
         </motion.div>
 
-        <motion.div
+        <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-8"
+          className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-primary-foreground mb-6 leading-tight"
         >
-          <img
-            src={logoNorthscape}
-            alt="Northscape Logo"
-            className="h-24 md:h-32 mx-auto brightness-0 invert"
-          />
-        </motion.div>
+          KESINENI
+          <br />
+          <span className="text-gold">NORTHSCAPE</span>
+        </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
