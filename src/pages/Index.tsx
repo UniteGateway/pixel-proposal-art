@@ -20,7 +20,7 @@ import { DeviceProvider, DeviceFrame } from "@/components/presentation/DevicePre
 const Index = () => {
   return (
     <DeviceProvider>
-      <div className="min-h-screen bg-background">
+      <div id="presentation-content" className="min-h-screen bg-background">
         <Navigation />
         <DeviceFrame>
           <HeroSection />

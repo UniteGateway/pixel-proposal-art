@@ -42,36 +42,46 @@ const Navigation = () => {
   const handleDownloadPDF = async () => {
     setIsGenerating(true);
     toast({
-      title: "Generating High-Resolution PDF",
-      description: "Please wait while we prepare your 16:9 landscape presentation...",
+      title: "Generating PDF",
+      description: "Please wait while we prepare your presentation...",
     });
 
     try {
-      const element = document.querySelector(".min-h-screen") as HTMLElement | null;
-      if (!element) return;
+      const element = document.getElementById("presentation-content");
+      if (!element) {
+        throw new Error("Content not found");
+      }
 
-      // 16:9 aspect ratio in inches (1920x1080 at 96 DPI = 20 x 11.25 inches)
+      // Clone the element to avoid modifying the original
+      const clone = element.cloneNode(true) as HTMLElement;
+      
+      // Remove animations and transitions for clean capture
+      clone.style.cssText = "position: absolute; left: -9999px; top: 0; width: 1920px;";
+      document.body.appendChild(clone);
+
       const opt = {
-        margin: 0,
+        margin: [10, 10, 10, 10] as [number, number, number, number],
         filename: "Kesineni-Northscape-Presentation.pdf",
-        image: { type: "jpeg" as const, quality: 1 },
+        image: { type: "jpeg" as const, quality: 0.98 },
         html2canvas: { 
-          scale: 3, // High resolution
+          scale: 2,
           useCORS: true,
           logging: false,
-          scrollY: -window.scrollY,
-          windowWidth: 1920,
-          windowHeight: 1080,
+          allowTaint: true,
+          backgroundColor: "#ffffff",
         },
         jsPDF: { 
-          unit: "in", 
-          format: [20, 11.25] as [number, number], // 16:9 custom format
-          orientation: "landscape" as const 
+          unit: "mm", 
+          format: "a4",
+          orientation: "portrait" as const 
         },
-        pagebreak: { mode: ["avoid-all", "css", "legacy"] },
+        pagebreak: { mode: ["css", "legacy"], before: ".pdf-page-break" },
       };
 
-      await html2pdf().set(opt).from(element).save();
+      await html2pdf().set(opt).from(clone).save();
+      
+      // Clean up clone
+      document.body.removeChild(clone);
 
       toast({
         title: "PDF Downloaded",
