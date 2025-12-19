@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Award, Clock, Shield, Star } from "lucide-react";
+import directorRaviShekar from "@/assets/director-ravi-shekar.png";
+import directorRaviChandra from "@/assets/director-ravi-chandra.png";
 
 const Leadership = () => {
   const ref = useRef(null);
@@ -11,11 +13,13 @@ const Leadership = () => {
     {
       name: "Ravi Shekar Reddy",
       title: "Director",
+      image: directorRaviShekar,
       expertise: ["Real Estate Development", "Strategic Planning", "Business Growth"],
     },
     {
       name: "Dr. Ravi Chandra",
       title: "Director",
+      image: directorRaviChandra,
       expertise: ["Project Management", "Quality Assurance", "Operations Excellence"],
     },
   ];
@@ -73,9 +77,11 @@ const Leadership = () => {
               className="bg-card border border-border rounded-2xl p-8 hover:shadow-lg transition-shadow"
             >
               <div className="flex items-start gap-6">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-gold flex items-center justify-center text-primary-foreground text-2xl font-bold flex-shrink-0">
-                  {leader.name.split(' ').map(n => n[0]).join('')}
-                </div>
+                <img 
+                  src={leader.image} 
+                  alt={leader.name}
+                  className="w-20 h-20 rounded-full object-cover flex-shrink-0"
+                />
                 <div>
                   <h3 className="text-xl font-serif font-bold text-foreground">{leader.name}</h3>
                   <p className="text-gold font-medium mb-4">{leader.title}</p>
