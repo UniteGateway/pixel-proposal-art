@@ -133,12 +133,65 @@ const villaTypesData = [
   { type: "Premium Villa", sqft: 5000, price: 3.5, units: 10 },
 ];
 
+// Phase-wise sales breakdown data
+const phaseSalesData = [
+  { 
+    phase: "Phase 1", 
+    totalVillas: 100, 
+    timeline: "Q1 2025 - Q2 2025",
+    acres: 7,
+    types: { "3BHK": 25, "4BHK": 45, "5BHK": 25, "Premium": 5 },
+    revenue: 180,
+    status: "Launching",
+    color: "#2d5a3d"
+  },
+  { 
+    phase: "Phase 2", 
+    totalVillas: 120, 
+    timeline: "Q3 2025 - Q4 2025",
+    acres: 8,
+    types: { "3BHK": 20, "4BHK": 50, "5BHK": 40, "Premium": 10 },
+    revenue: 240,
+    status: "Planning",
+    color: "#4a8c5e"
+  },
+  { 
+    phase: "Phase 3", 
+    totalVillas: 115, 
+    timeline: "Q1 2026 - Q3 2026",
+    acres: 8,
+    types: { "3BHK": 15, "4BHK": 50, "5BHK": 40, "Premium": 10 },
+    revenue: 250,
+    status: "Planned",
+    color: "#c9a227"
+  },
+  { 
+    phase: "Phase 4", 
+    totalVillas: 100, 
+    timeline: "Q4 2026 - Q2 2027",
+    acres: 7,
+    types: { "3BHK": 10, "4BHK": 40, "5BHK": 35, "Premium": 15 },
+    revenue: 230,
+    status: "Planned",
+    color: "#8b7355"
+  },
+];
+
+// Phase sales chart data
+const phaseSalesChartData = phaseSalesData.map(p => ({
+  name: p.phase,
+  villas: p.totalVillas,
+  revenue: p.revenue,
+  acres: p.acres
+}));
+
 // Navigation menu items
 const menuItems = [
   { icon: LayoutDashboard, label: "Overview", href: "#overview" },
   { icon: MapPin, label: "Location", href: "#location" },
   { icon: Building2, label: "Area Analysis", href: "#area" },
   { icon: TrendingUp, label: "Sales Projections", href: "#sales" },
+  { icon: Home, label: "Phase Breakdown", href: "#phases" },
   { icon: BarChart3, label: "Market Growth", href: "#growth" },
   { icon: Navigation, label: "Connectivity", href: "#connectivity" },
   { icon: Users, label: "Demographics", href: "#demographics" },
@@ -533,6 +586,148 @@ const Dashboard = () => {
                       </div>
                     </div>
                   ))}
+                </div>
+              </CardContent>
+            </Card>
+          </section>
+
+          {/* Phase-wise Sales Breakdown */}
+          <section id="phases">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Building2 className="w-5 h-5 text-accent" />
+                  Phase-wise Villa Distribution & Sales Breakdown
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                {/* Phase Overview Chart */}
+                <div className="h-64 mb-6">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart data={phaseSalesChartData}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis yAxisId="left" orientation="left" />
+                      <YAxis yAxisId="right" orientation="right" />
+                      <Tooltip 
+                        content={({ active, payload, label }) => {
+                          if (active && payload && payload.length) {
+                            const phase = phaseSalesData.find(p => p.phase === label);
+                            return (
+                              <div className="bg-background border border-border rounded-lg p-3 shadow-lg">
+                                <p className="font-semibold text-foreground">{label}</p>
+                                <p className="text-xs text-muted-foreground mb-2">{phase?.timeline}</p>
+                                <p className="text-sm">Villas: <span className="font-semibold">{payload[0]?.value}</span></p>
+                                <p className="text-sm">Revenue: <span className="font-semibold">₹{payload[1]?.value} Cr</span></p>
+                                <p className="text-sm">Land: <span className="font-semibold">{phase?.acres} Acres</span></p>
+                              </div>
+                            );
+                          }
+                          return null;
+                        }}
+                      />
+                      <Legend />
+                      <Bar yAxisId="left" dataKey="villas" name="Total Villas" fill="#2d5a3d" radius={[4, 4, 0, 0]} />
+                      <Bar yAxisId="right" dataKey="revenue" name="Revenue (₹ Cr)" fill="#c9a227" radius={[4, 4, 0, 0]} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+
+                {/* Phase Details Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {phaseSalesData.map((phase) => (
+                    <motion.div
+                      key={phase.phase}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="border border-border rounded-lg p-4 hover:shadow-lg transition-shadow"
+                      style={{ borderLeftColor: phase.color, borderLeftWidth: 4 }}
+                    >
+                      <div className="flex justify-between items-start mb-3">
+                        <h4 className="font-semibold text-lg">{phase.phase}</h4>
+                        <span 
+                          className="text-xs px-2 py-1 rounded-full"
+                          style={{ 
+                            backgroundColor: phase.status === "Launching" ? "#2d5a3d20" : "#c9a22720",
+                            color: phase.status === "Launching" ? "#2d5a3d" : "#c9a227"
+                          }}
+                        >
+                          {phase.status}
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mb-3">{phase.timeline}</p>
+                      
+                      <div className="space-y-2 mb-3">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Total Villas</span>
+                          <span className="font-semibold">{phase.totalVillas}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Land Area</span>
+                          <span className="font-semibold">{phase.acres} Acres</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-muted-foreground">Est. Revenue</span>
+                          <span className="font-semibold text-accent">₹{phase.revenue} Cr</span>
+                        </div>
+                      </div>
+
+                      {/* Villa Type Breakdown */}
+                      <div className="border-t border-border pt-3">
+                        <p className="text-xs font-semibold mb-2">Villa Distribution</p>
+                        <div className="grid grid-cols-2 gap-1 text-xs">
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">3 BHK:</span>
+                            <span>{phase.types["3BHK"]}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">4 BHK:</span>
+                            <span>{phase.types["4BHK"]}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">5 BHK:</span>
+                            <span>{phase.types["5BHK"]}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-muted-foreground">Premium:</span>
+                            <span>{phase.types["Premium"]}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="mt-3">
+                        <div className="flex justify-between text-xs mb-1">
+                          <span className="text-muted-foreground">Completion</span>
+                          <span>{phase.status === "Launching" ? "10%" : phase.status === "Planning" ? "5%" : "0%"}</span>
+                        </div>
+                        <Progress 
+                          value={phase.status === "Launching" ? 10 : phase.status === "Planning" ? 5 : 0} 
+                          className="h-1.5"
+                        />
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Summary Stats */}
+                <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-muted/30 rounded-lg">
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-primary">435</p>
+                    <p className="text-xs text-muted-foreground">Total Villas</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-accent">₹900 Cr</p>
+                    <p className="text-xs text-muted-foreground">Total Revenue</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-primary">30</p>
+                    <p className="text-xs text-muted-foreground">Total Acres</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-2xl font-bold text-accent">4</p>
+                    <p className="text-xs text-muted-foreground">Total Phases</p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
