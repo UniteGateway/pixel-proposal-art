@@ -94,7 +94,7 @@ const HeroSection = () => {
             <img
               src={logoUnite}
               alt="Unite Constructions"
-              className="h-10 md:h-14 mx-auto brightness-0 invert"
+              className="h-12 md:h-16 mx-auto"
             />
             <p className="text-gold text-sm mt-2">Powered by Unite Group Inc., USA</p>
           </div>
