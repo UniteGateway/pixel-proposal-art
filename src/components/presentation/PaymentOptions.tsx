@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { CreditCard, Building2, Users, CheckCircle, Mail, Phone, MapPin } from "lucide-react";
+import logoUnite from "@/assets/logo-unite.png";
 
 const PaymentOptions = () => {
   const ref = useRef(null);
@@ -102,8 +103,12 @@ const PaymentOptions = () => {
           <div className="grid md:grid-cols-3 gap-8 mb-10">
             <div>
               <h4 className="text-lg font-semibold mb-4 text-gold border-b border-gold/30 pb-2">Company</h4>
-              <p className="font-semibold mb-1">Unite Green Infra Pvt Ltd</p>
-              <p className="text-sm opacity-80 mb-3">Powered by Unite Group Inc., USA</p>
+              <img
+                src={logoUnite}
+                alt="Unite Constructions"
+                className="h-12 mb-3"
+              />
+              <p className="text-sm opacity-80 mb-1">Powered by Unite Group Inc., USA</p>
               <p className="text-sm opacity-70">RERA: P02200010116</p>
             </div>
 
