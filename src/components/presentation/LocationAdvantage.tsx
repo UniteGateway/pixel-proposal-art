@@ -86,7 +86,7 @@ const LocationAdvantage = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="bg-gradient-to-r from-primary to-green-dark p-8 md:p-12 rounded-2xl text-primary-foreground"
+          className="bg-green-dark p-8 md:p-12 rounded-2xl text-primary-foreground"
         >
           <div className="flex items-center gap-3 mb-8">
             <TrendingUp className="w-6 h-6 text-gold" />
