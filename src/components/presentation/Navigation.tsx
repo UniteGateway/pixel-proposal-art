@@ -4,6 +4,7 @@ import { Menu, X, Download, Loader2 } from "lucide-react";
 import html2pdf from "html2pdf.js";
 import { useToast } from "@/hooks/use-toast";
 import { DeviceSelector } from "./DevicePreview";
+import logoNorthscape from "@/assets/logo-northscape.png";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -106,9 +107,11 @@ const Navigation = () => {
               onClick={() => scrollToSection("hero")}
               className="flex items-center gap-2"
             >
-              <span className={`text-lg md:text-xl font-serif font-bold ${scrolled ? "text-foreground" : "text-primary-foreground"}`}>
-                KESINENI <span className="text-gold">NORTHSCAPE</span>
-              </span>
+              <img 
+                src={logoNorthscape} 
+                alt="Northscape" 
+                className={`h-10 md:h-12 ${scrolled ? "" : "brightness-0 invert"}`}
+              />
             </button>
 
             {/* Desktop Menu */}
