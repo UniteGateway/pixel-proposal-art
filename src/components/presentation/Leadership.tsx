@@ -11,15 +11,15 @@ const Leadership = () => {
 
   const leaders = [
     {
-      name: "Ravi Shekar Reddy",
+      name: "Ravi Sekhar Reddy",
       title: "Director",
-      image: directorRaviShekar,
+      image: directorRaviChandra,
       expertise: ["Real Estate Development", "Strategic Planning", "Business Growth"],
     },
     {
       name: "Dr. Ravi Chandra",
       title: "Director",
-      image: directorRaviChandra,
+      image: directorRaviShekar,
       expertise: ["Project Management", "Quality Assurance", "Operations Excellence"],
     },
   ];
