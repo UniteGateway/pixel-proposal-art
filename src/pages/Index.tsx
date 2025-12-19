@@ -13,6 +13,7 @@ import Phase1 from "@/components/presentation/Phase1";
 import Phase2 from "@/components/presentation/Phase2";
 import Phase3 from "@/components/presentation/Phase3";
 import Phase4 from "@/components/presentation/Phase4";
+import PricingStrategy from "@/components/presentation/PricingStrategy";
 import PaymentOptions from "@/components/presentation/PaymentOptions";
 import { DeviceProvider, DeviceFrame } from "@/components/presentation/DevicePreview";
 
@@ -36,6 +37,7 @@ const Index = () => {
           <Phase2 />
           <Phase3 />
           <Phase4 />
+          <PricingStrategy />
           <PaymentOptions />
         </DeviceFrame>
       </div>
