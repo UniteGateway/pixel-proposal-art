@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download, Loader2 } from "lucide-react";
+import { Menu, X, Download, Loader2, LayoutDashboard } from "lucide-react";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import { useToast } from "@/hooks/use-toast";
@@ -186,9 +187,19 @@ const Navigation = () => {
                 </button>
               ))}
               
+              {/* Dashboard Link */}
+              <Link
+                to="/dashboard"
+                className={`flex items-center gap-2 text-sm font-medium transition-colors hover:text-gold ${
+                  scrolled ? "text-foreground/80" : "text-primary-foreground/80"
+                }`}
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                Dashboard
+              </Link>
+
               {/* Device Selector */}
               <DeviceSelector scrolled={scrolled} />
-              
               
               {/* PDF Download Button */}
               <button
@@ -257,12 +268,28 @@ const Navigation = () => {
                     {section.label}
                   </motion.button>
                 ))}
+
+                {/* Dashboard Link Mobile */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: sections.length * 0.1 }}
+                >
+                  <Link
+                    to="/dashboard"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center gap-2 text-xl font-serif font-medium text-foreground hover:text-gold transition-colors"
+                  >
+                    <LayoutDashboard className="w-5 h-5" />
+                    Dashboard
+                  </Link>
+                </motion.div>
                 
                 {/* Mobile PDF Download */}
                 <motion.button
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: sections.length * 0.1 }}
+                  transition={{ delay: (sections.length + 1) * 0.1 }}
                   onClick={handleDownloadPDF}
                   disabled={isGenerating}
                   className="flex items-center gap-2 px-6 py-3 bg-gold text-green-dark rounded-full font-medium mt-4"
