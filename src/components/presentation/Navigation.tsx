@@ -41,25 +41,32 @@ const Navigation = () => {
   const handleDownloadPDF = async () => {
     setIsGenerating(true);
     toast({
-      title: "Generating PDF",
-      description: "Please wait while we prepare your document...",
+      title: "Generating High-Resolution PDF",
+      description: "Please wait while we prepare your 16:9 landscape presentation...",
     });
 
     try {
       const element = document.querySelector(".min-h-screen") as HTMLElement | null;
       if (!element) return;
 
+      // 16:9 aspect ratio in inches (1920x1080 at 96 DPI = 20 x 11.25 inches)
       const opt = {
         margin: 0,
-        filename: "Kesineni-Northscape-Proposal.pdf",
-        image: { type: "jpeg" as const, quality: 0.98 },
+        filename: "Kesineni-Northscape-Presentation.pdf",
+        image: { type: "jpeg" as const, quality: 1 },
         html2canvas: { 
-          scale: 2, 
+          scale: 3, // High resolution
           useCORS: true,
           logging: false,
           scrollY: -window.scrollY,
+          windowWidth: 1920,
+          windowHeight: 1080,
         },
-        jsPDF: { unit: "in", format: "a4", orientation: "portrait" as const },
+        jsPDF: { 
+          unit: "in", 
+          format: [20, 11.25] as [number, number], // 16:9 custom format
+          orientation: "landscape" as const 
+        },
         pagebreak: { mode: ["avoid-all", "css", "legacy"] },
       };
 
@@ -67,7 +74,7 @@ const Navigation = () => {
 
       toast({
         title: "PDF Downloaded",
-        description: "Your presentation has been saved successfully.",
+        description: "Your high-resolution 16:9 presentation has been saved.",
       });
     } catch (error) {
       toast({

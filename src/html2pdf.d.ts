@@ -8,8 +8,10 @@ declare module "html2pdf.js" {
       useCORS?: boolean;
       logging?: boolean;
       scrollY?: number;
+      windowWidth?: number;
+      windowHeight?: number;
     };
-    jsPDF?: { unit?: string; format?: string; orientation?: "landscape" | "portrait" };
+    jsPDF?: { unit?: string; format?: string | [number, number]; orientation?: "landscape" | "portrait" };
     pagebreak?: { mode?: string[] };
   }
 
