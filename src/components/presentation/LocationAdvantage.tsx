@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Plane, GraduationCap, Building, Car, TrendingUp } from "lucide-react";
-import villa5 from "@/assets/villa-5.jpg";
+import locationBg from "@/assets/location-bg.png";
 
 const LocationAdvantage = () => {
   const ref = useRef(null);
@@ -49,7 +49,7 @@ const LocationAdvantage = () => {
           className="relative rounded-2xl overflow-hidden mb-12 aspect-video"
         >
           <img 
-            src={villa5} 
+            src={locationBg}
             alt="Luxury villa community"
             className="w-full h-full object-cover"
           />
