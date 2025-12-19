@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download, Loader2, Mail } from "lucide-react";
+import { Menu, X, Download, Loader2 } from "lucide-react";
 import html2pdf from "html2pdf.js";
 import { useToast } from "@/hooks/use-toast";
 import { DeviceSelector } from "./DevicePreview";
-import EmailPresentationModal from "./EmailPresentationModal";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
   const { toast } = useToast();
 
   const sections = [
@@ -123,18 +121,6 @@ const Navigation = () => {
               {/* Device Selector */}
               <DeviceSelector scrolled={scrolled} />
               
-              {/* Email Presentation Button */}
-              <button
-                onClick={() => setIsEmailModalOpen(true)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  scrolled
-                    ? "bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border"
-                    : "bg-primary-foreground/10 text-primary-foreground hover:bg-primary-foreground/20"
-                }`}
-              >
-                <Mail className="w-4 h-4" />
-                Email
-              </button>
               
               {/* PDF Download Button */}
               <button
@@ -157,12 +143,6 @@ const Navigation = () => {
 
             {/* Mobile Menu Button */}
             <div className="flex lg:hidden items-center gap-2">
-              <button
-                onClick={() => setIsEmailModalOpen(true)}
-                className={`p-2 rounded-full ${scrolled ? "bg-secondary text-secondary-foreground border border-border" : "bg-primary-foreground/10 text-primary-foreground"}`}
-              >
-                <Mail className="w-5 h-5" />
-              </button>
               <button
                 onClick={handleDownloadPDF}
                 disabled={isGenerating}
@@ -232,11 +212,6 @@ const Navigation = () => {
         )}
       </AnimatePresence>
 
-      {/* Email Modal */}
-      <EmailPresentationModal
-        isOpen={isEmailModalOpen}
-        onClose={() => setIsEmailModalOpen(false)}
-      />
     </>
   );
 };
